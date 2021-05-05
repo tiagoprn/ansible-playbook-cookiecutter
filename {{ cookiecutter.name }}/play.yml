@@ -1,0 +1,10 @@
+- hosts: all
+  # strategy: debug  ## interactive debug console when a task fails.
+  vars_prompt:
+    - name: destination
+      prompt: "What is the value of the destination variable? (value1/value2)"
+      private: no
+  roles:
+    - gather_custom_facts
+    - {role: example, when: "ansible_local['example_facts']['has_example_installed'] == false" }
+    - {role: {{ cookiecutter.name }}, when: "ansible_local['{{ cookiecutter.name }}_facts']['has_{{ cookiecutter.name }}_installed'] == false" }

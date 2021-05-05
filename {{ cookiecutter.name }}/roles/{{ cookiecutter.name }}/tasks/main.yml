@@ -1,0 +1,14 @@
+# Do your playbook magic here =D
+
+- name: Generate file to verify it passed through this role
+  lineinfile:
+    dest: /var/log/{{ cookiecutter.name }}_passed.txt
+    {% raw %}
+    line: "{{ ansible_date_time.iso8601 }}"
+    {% endraw %}
+    state: present
+    create: yes
+    owner: root
+    group: root
+    mode: 0644
+

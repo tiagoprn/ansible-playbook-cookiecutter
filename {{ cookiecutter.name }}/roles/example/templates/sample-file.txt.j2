@@ -1,0 +1,10 @@
+{% raw %}
+{% if destination == 'host' %}
+
+File contents when destination is host.
+
+{% else %}
+
+File contents when destination is NOT host (it is: {{ destination }}).
+{% endif %}
+{% endraw %}

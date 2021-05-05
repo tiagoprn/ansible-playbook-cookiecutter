@@ -1,0 +1,3 @@
+# {{ cookiecutter.name }}
+
+This role does...

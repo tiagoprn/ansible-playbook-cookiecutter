@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ls /var/log/example_passed.txt > /dev/null 2>&1
+
+# If there is an error on the previous bash command, {{ cookiecutter.name }} is not installed
+# below must result in a json formatted dict, so ansible can use it
+if [ $? -ne 0 ] ; then
+    echo "{\"has_example_installed\": false}"
+else
+    echo "{\"has_example_installed\": true}"
+fi
+

@@ -1,0 +1,32 @@
+- name: Print destination
+  debug: var=destination
+
+- name: Create directory to store files
+  file:
+    path: /tmp/destination_folder
+    state: directory
+
+- name: Create the vpn configuration
+  template:
+    src: sample-file.txt.j2
+    dest: /tmp/destination/sample-file.txt
+    owner: root
+    group: root
+    mode: 0600
+    backup: yes
+
+- name: Copy file to temporary directory
+  copy: src=files/contents.txt dest=/tmp/destination_folder owner=root group=root mode=0600
+
+- name: Generate file to verify it passed through this role
+  lineinfile:
+    dest: /var/log/example_passed.txt
+    {% raw %}
+    line: "{{ ansible_date_time.iso8601 }}"
+    {% endraw %}
+    state: present
+    create: yes
+    owner: root
+    group: root
+    mode: 0644
+

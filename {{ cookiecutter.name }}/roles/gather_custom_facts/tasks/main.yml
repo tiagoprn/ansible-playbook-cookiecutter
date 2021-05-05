@@ -1,0 +1,24 @@
+- name: Create custom fact directory to allow storing custom facts to be read by any playbook
+  file:
+    path: /etc/ansible/facts.d
+    state: directory
+
+- name: Insert example fact file
+  copy:
+    src: files/example_facts.fact
+    dest: /etc/ansible/facts.d/example_facts.fact
+    mode: 0755
+
+- name: Insert {{ cookiecutter.name }} fact file
+  copy:
+    src: files/{{ cookiecutter.name }}_facts.fact
+    dest: /etc/ansible/facts.d/{{ cookiecutter.name }}_facts.fact
+    mode: 0755
+
+- name: Reload ansible local vars, to have the installed facts available to use
+  setup: filter=ansible_local
+
+- name: show ansible_local dict values
+  debug:
+    var: ansible_local
+    verbosity: 1
